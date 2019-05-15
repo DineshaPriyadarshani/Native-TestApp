@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Firebase from './config/Firebase';
+import HomePage from './app/screens/HomePage';
+import { createStackNavigator, createAppContainer } from 'react-navigation';
 import {
   StyleSheet,
   Text,
@@ -48,8 +50,13 @@ handleClose = () => {
     this.setState({ open: false });
 };
 
+// Login = () =>{
+//   this.props.navigation.navigate('Homepage');
+// }
+
 handleLogin = () => {
-  console.log(this.state.userEmail)
+  console.log(this.state.userEmail);
+  //this.props.navigation.navigate('Homepage');
   const students = [];
   var Ref = Firebase.firestore().collection('students')
   var query = Ref.where('email', '==',this.state.userEmail).get()
@@ -94,10 +101,11 @@ handleLoggingType = () => {
 }
 
   render() {
+    console.log("object");
     return (
       
       <View style={styles.container}>
-      
+        {/* <Text>text p age</Text> */}
         <View style={styles.inputContainer}>
           <Image style={styles.inputIcon} source={require('./app/images/email.png')}/>
           <TextInput style={styles.inputs}
@@ -118,7 +126,10 @@ handleLoggingType = () => {
               onChangeText={(userPassword) => this.setState({userPassword})}/>
         </View>
 
-        <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={this.handleLogin.bind(this)}>
+        <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} 
+        // onPress={() => this.props.navigation.navigate('HomePage')}
+        onPress={this.handleLogin.bind(this)}
+        >
           <Text style={styles.loginText}>Login</Text>
         </TouchableHighlight>
         
